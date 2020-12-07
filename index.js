@@ -1,20 +1,21 @@
 const app = require("express")();
-const httpServer = require("http").createServer(app);
+const httpServer = require("http").Server(app);
 const socket = require("socket.io")(httpServer);
 
-let port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("<h1>Hello world</h1>");
 });
 
 socket.on("connect", (client) => {
-  client.on("message", (data) => {
-    console.log(data);
-    socket.emit("message", data);
+  console.log("connected");
+  client.on("message", (message) => {
+    console.log(message);
+    socket.emit("message", message);
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server has started at ${port}`);
+httpServer.listen(port, (err) => {
+  console.log("server started at 5000");
 });
