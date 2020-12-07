@@ -5,7 +5,7 @@ const socket = require("socket.io")(httpServer);
 let port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello World</h1>");
+  res.send("Hello World");
 });
 
 socket.on("connect", (client) => {
